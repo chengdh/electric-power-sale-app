@@ -1,0 +1,9 @@
+version: '3'
+services:
+  eps-app:
+    build: .
+    command: "npm run serve"
+    ports:
+      - "9020:9020"
+    volumes:
+       - .:/app
