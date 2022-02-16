@@ -2,7 +2,7 @@ version: '3'
 services:
   eps-app:
     build: .
-    command: "npm run serve"
+    command: "npm run dev"
     ports:
       - "9020:9020"
     volumes:
