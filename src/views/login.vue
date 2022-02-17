@@ -2,24 +2,27 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { initRouter } from "/@/router/utils";
-import { storageSession } from "/@/utils/storage";
 import { addClass, removeClass } from "/@/utils/operate";
-import bg from "/@/assets/login/bg.png";
-import avatar from "/@/assets/login/avatar.svg?component";
-import illustration from "/@/assets/login/illustration.svg?component";
+import { storageSession } from "/@/utils/storage";
+import { useUserStore } from "/@/store/modules/user";
 
 const router = useRouter();
 
-let user = ref("admin");
-let pwd = ref("123456");
+let username = ref("");
+let password = ref("");
+const userStore = useUserStore();
 
 const onLogin = (): void => {
-  storageSession.setItem("info", {
-    username: "admin",
-    accessToken: "eyJhbGciOiJIUzUxMiJ9.test"
-  });
-  initRouter("admin").then(() => {});
-  router.push("/");
+  userStore
+    .loginByUsername({
+      username: username.value,
+      password: password.value
+    })
+    .then(data => {
+      router.push("/");
+    });
+
+  // initRouter("admin").then(() => {});
 };
 
 function onUserFocus() {
@@ -27,7 +30,7 @@ function onUserFocus() {
 }
 
 function onUserBlur() {
-  if (user.value.length === 0)
+  if (username.value.length === 0)
     removeClass(document.querySelector(".user"), "focus");
 }
 
@@ -36,13 +39,13 @@ function onPwdFocus() {
 }
 
 function onPwdBlur() {
-  if (pwd.value.length === 0)
+  if (password.value.length === 0)
     removeClass(document.querySelector(".pwd"), "focus");
 }
 </script>
 
 <template>
-  <img :src="bg" class="wave" />
+  <img class="wave" />
   <div class="login-container">
     <div class="img">
       <illustration />
@@ -89,7 +92,7 @@ function onPwdBlur() {
             <input
               type="text"
               class="input"
-              v-model="user"
+              v-model="username"
               @focus="onUserFocus"
               @blur="onUserBlur"
             />
@@ -118,7 +121,7 @@ function onPwdBlur() {
             <input
               type="password"
               class="input"
-              v-model="pwd"
+              v-model="password"
               @focus="onPwdFocus"
               @blur="onPwdBlur"
             />

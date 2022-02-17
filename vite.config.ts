@@ -20,13 +20,8 @@ const alias: Record<string, string> = {
 };
 
 export default ({ command, mode }: ConfigEnv): UserConfigExport => {
-  const {
-    VITE_PORT,
-    VITE_LEGACY,
-    VITE_PUBLIC_PATH,
-    VITE_PROXY_DOMAIN,
-    VITE_PROXY_DOMAIN_REAL
-  } = warpperEnv(loadEnv(mode, root));
+  const { VITE_PORT, VITE_LEGACY, VITE_PUBLIC_PATH, VITE_PROXY_DOMAIN } =
+    warpperEnv(loadEnv(mode, root));
   return {
     base: VITE_PUBLIC_PATH,
     root,
@@ -56,19 +51,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
       https: false,
       // 端口号
       port: VITE_PORT,
-      host: "0.0.0.0",
-      // 本地跨域代理
-      proxy:
-        VITE_PROXY_DOMAIN_REAL.length > 0
-          ? {
-              [VITE_PROXY_DOMAIN]: {
-                target: VITE_PROXY_DOMAIN_REAL,
-                // ws: true,
-                changeOrigin: true,
-                rewrite: (path: string) => regExps(path, VITE_PROXY_DOMAIN)
-              }
-            }
-          : null
+      host: "0.0.0.0"
     },
     plugins: getPluginsList(command, VITE_LEGACY),
     optimizeDeps: {
