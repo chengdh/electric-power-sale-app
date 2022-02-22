@@ -7,6 +7,7 @@ import { storageSession } from "/@/utils/storage";
 import { useAppStoreHook } from "/@/store/modules/app";
 import { Title } from "../../../public/serverConfig.json";
 import { useEpThemeStoreHook } from "/@/store/modules/epTheme";
+import { useUserStore } from "/@/store/modules/user";
 
 export function useNav() {
   const pureApp = useAppStoreHook();
@@ -34,10 +35,10 @@ export function useNav() {
     else document.title = transformI18n(meta.title, meta.i18n);
   }
 
+  const userStore = useUserStore();
   // 退出登录
   function logout() {
-    storageSession.removeItem("info");
-    router.push("/login");
+    userStore.logOut();
   }
 
   function backHome() {

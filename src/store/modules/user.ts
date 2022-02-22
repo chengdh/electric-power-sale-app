@@ -6,6 +6,7 @@ import { getLogin, refreshToken } from "/@/api/user";
 import { storageLocal, storageSession } from "/@/utils/storage";
 import { getToken, setToken, removeToken } from "/@/utils/auth";
 import { useMultiTagsStoreHook } from "/@/store/modules/multiTags";
+import router from "/@/router";
 
 const data = getToken();
 let token = "";
@@ -64,7 +65,7 @@ export const useUserStore = defineStore({
           }
         }
       ]);
-      useRouter().push("/login");
+      router.push("/login");
     },
     // 刷新token
     async refreshToken(data) {
