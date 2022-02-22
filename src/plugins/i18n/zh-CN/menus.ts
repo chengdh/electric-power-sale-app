@@ -1,6 +1,6 @@
 export default {
   hshome: "首页",
-  hslogin: "登陆",
+  hslogin: "登录",
   hssysManagement: "系统管理",
   hsBaseinfo: "基础信息",
   hserror: "错误页面",

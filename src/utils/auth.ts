@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import { useUserStoreHook } from "/@/store/modules/user";
+import { storageSession } from "/@/utils/storage";
 
 const TokenKey = "authorized-token";
 
@@ -29,7 +30,11 @@ export function setToken(data) {
   useUserStoreHook().SET_TOKEN(access_token);
   useUserStoreHook().SET_NAME(user.username);
   Cookies.set(TokenKey, dataString);
-  sessionStorage.setItem(TokenKey, dataString);
+  storageSession.setItem(TokenKey, paramsMap);
+  storageSession.setItem("info", {
+    username: user.username,
+    accessToken: access_token
+  });
 }
 
 // 删除token

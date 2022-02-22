@@ -61,7 +61,10 @@ class PureHttp {
         if (token) {
           const data = JSON.parse(token);
           const now = new Date().getTime();
-          const expired = parseInt(data.expires) - now <= 0;
+
+          //FIXME: 判断token过期日期
+          // const expired = parseInt(data.expires) - now <= 0;
+          const expired = false;
           if (expired) {
             // token过期刷新
             useUserStoreHook()

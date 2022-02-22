@@ -18,11 +18,11 @@ const onLogin = (): void => {
       username: username.value,
       password: password.value
     })
-    .then(data => {
-      router.push("/");
+    .then(() => {
+      initRouter(username.value).then(() => {
+        router.push("/");
+      });
     });
-
-  // initRouter("admin").then(() => {});
 };
 
 function onUserFocus() {

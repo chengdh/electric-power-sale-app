@@ -104,9 +104,11 @@ function resetRouter(): void {
 }
 
 // 初始化路由
+// name 当前登录用户的角色名
 function initRouter(name: string) {
   return new Promise(resolve => {
-    getAsyncRoutes({ name }).then(({ info }) => {
+    getAsyncRoutes({ name }).then(({ routers }) => {
+      const info = routers;
       if (info.length === 0) {
         usePermissionStoreHook().changeSetting(info);
       } else {

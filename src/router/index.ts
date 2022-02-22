@@ -51,6 +51,7 @@ router.beforeEach((to: toRouteType, _from, next) => {
     }
   }
   const name = storageSession.getItem("info");
+
   NProgress.start();
   const externalLink = to?.redirectedFrom?.fullPath;
   if (!externalLink)
